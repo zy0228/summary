@@ -1,18 +1,18 @@
 //实现 new 方法
-// function myNew(constructor) {
-//   const obj = {};
-//   Object.setPrototypeOf(obj, constructor.prototype);
-//   var args = Array.prototype.slice.apply(arguments);
-//   return constructor.apply(obj, args.slice(1)) || obj
-// }
+function myNew(constructor) {
+  const obj = {};
+  Object.setPrototypeOf(obj, constructor.prototype);
+  var args = Array.prototype.slice.apply(arguments);
+  return constructor.apply(obj, args.slice(1)) || obj
+}
 
-// function Persion(name, age) {
-//   this.name = name;
-//   this.age = age;
-// }
+function Persion(name, age) {
+  this.name = name;
+  this.age = age;
+}
 
-// var mike = myNew(Persion, 'mike', 19);
-// console.log(mike.name);      //mike
+var mike = myNew(Persion, 'mike', 19);
+console.log(mike.name);      //mike
 
 //实现 instanceOf
 function myInstanceOf(left, right) {
@@ -28,7 +28,7 @@ function myInstanceOf(left, right) {
   }
 }
 
-console.log(myInstanceOf(1, Number));
+console.log(myInstanceOf(1, Number)); //true
 //实现apply, call, bind
 //实现reduce, map, filter
 //实现promise
