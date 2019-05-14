@@ -30,5 +30,45 @@ function myInstanceOf(left, right) {
 
 console.log(myInstanceOf(1, Number)); //true
 //实现apply, call, bind
+Function.prototype.myOwnCall = function(something) {
+  something = something || window;
+  var uniqueID = '00' + Math.random();
+  while (something.hasOwnProperty(uniqueID)) {
+    uniqueID = '00' + Math.random();
+  }
+  something[uniqueID] = this;
+
+  var args = [];
+  for (var i = 1, len = arguments.length; i < len; i++) {
+    args.push("arguments[" + i + "]")
+  }
+
+  var result = eval("something[uniqueID](" + args + ")");
+  delete something[uniqueID];
+  return result;
+}
+
+Function.prototype.myOwnApply = function(something, arr) {
+  something = something || window;
+  var uniqueID = '00' + Math.random();
+  while (something.hasOwnProerty(uniqueID)) {
+    uniqueID = '00' + Math.random();
+  }
+  something[uniqueID] = this;
+
+  var args = [];
+  var result = null;
+
+  if (!arr) {
+    result = something[uniqueID]();
+  } else {
+    for (var i = 0, len = arr.length; i < len; i++) {
+      args.push("arr[" + i + "]");
+    }
+    result = eval("something[uniqueID](" + args + ")")
+  }
+
+  return result;
+}
 //实现reduce, map, filter
 //实现promise
