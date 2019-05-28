@@ -27,8 +27,8 @@ function myInstanceOf(left, right) {
     leftProto = leftProto.__proto__;
   }
 }
-
 console.log(myInstanceOf(1, Number)); //true
+
 //实现apply, call, bind
 Function.prototype.myOwnCall = function(something) {
   something = something || window;
@@ -70,5 +70,58 @@ Function.prototype.myOwnApply = function(something, arr) {
 
   return result;
 }
-//实现reduce, map, filter
-//实现promise
+
+Function.prototype.ownBind = function(OThis) {
+  if (typeof this !== 'function') {
+    throw new TypeError('Function.propotype.bownBind what -bound can not callable');
+  }
+
+  let args = Array.prototype.slice.call(arguments, 1),
+      fTo = this,
+      fop = function() {},
+      fBound = function() {
+        return fTo.apply(this instanceof OThis ? this : OThis, args.concat(Array.prototype.slice.call(arguments)));
+      };
+
+  if (this.prototype) {
+    fTo.prototype = this.prototype;
+  }
+
+  fBound.prototype = new fop();
+
+  return fBound;
+}
+
+//数组去重
+function unique(arr) {
+  var res = [];
+  for (var i = 0, len = arr.length; i < len; i ++) {
+    for (var k = 0, resLen = res.length; k < resLen; k++) {
+      if (arr[i] === res[k]) {
+        break;
+      }
+    }
+    if (k === res.length) {
+      res.push(arr[i]);
+    }
+  }
+  return res;
+}
+
+function unique(arr) {
+  var res = [];
+  for (var i = 0, len = arr.length; i < len; i++) {
+    var v = arr[i];
+    if (res.indexOf(v) === -1) {
+      res.push(v);
+    }
+  }
+  return res;
+}
+
+function unique(arr) {
+  return [...new Set(arr)]
+}
+
+//扁平化数组
+const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)))
