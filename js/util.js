@@ -1,3 +1,8 @@
+/**
+ * 
+ * What I Cannot create, I do not undersatand
+ */
+
 //实现 new 方法
 function myNew(constructor) {
   const obj = {};

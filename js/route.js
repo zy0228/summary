@@ -1,5 +1,7 @@
-//两种实现路由系统的方法
-// 1. hash route
+/**
+ * (Client-Side routing)  create Mixin-Route
+ */
+// 1. Ceate with hash
 class Routers {
   constructor() {
     this.routers = {};
@@ -14,7 +16,7 @@ class Routers {
   }
 
   refresh() {
-    this.currentUrl = location.hash.substr(1) || '/';
+    this.currentUrl = location.hash.substr(1) || '/';   
     this.routers[this.currentUrl]();
   }
 }
@@ -32,7 +34,7 @@ Router.route('/blue', () => {
   changeColor('blue');
 })
 
-//2. hostory
+//2. Ceate with History
 class Routers {
   constructor() {
     this.routes = {};
