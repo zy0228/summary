@@ -64,7 +64,7 @@ class Routers {
   }
 }
 
-window.Router = new Routers();  
+window.Router = new Routers();
 Router.init(location.pathname);
 const ul = document.querySelector('ul');
 ul.addEventListener('click', e => {
