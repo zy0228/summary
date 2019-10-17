@@ -98,7 +98,7 @@ Function.prototype.ownBind = function(OThis) {
 }
 
 //数组去重
-function unique(arr) {
+function unique1(arr) {
   var res = [];
   for (var i = 0, len = arr.length; i < len; i ++) {
     for (var k = 0, resLen = res.length; k < resLen; k++) {
@@ -113,7 +113,7 @@ function unique(arr) {
   return res;
 }
 
-function unique(arr) {
+function unique2(arr) {
   var res = [];
   for (var i = 0, len = arr.length; i < len; i++) {
     var v = arr[i];
@@ -124,9 +124,32 @@ function unique(arr) {
   return res;
 }
 
-function unique(arr) {
+function unique3(arr) {
   return [...new Set(arr)]
 }
 
 //扁平化数组
 const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)))
+
+
+/**
+ * 对象深拷贝
+ * @param {*} obj 
+ */
+const deepClone = obj => {
+  let result
+  if (typeof obj === 'object') {
+    result = (Object.prototype.toString.call(obj) === '[object Array]') ? [] : {}
+    for (let i in obj) {
+      if (typeof obj[i] === 'object') {
+        result[i] = deepClone(obj[i])
+      } else {
+        result[i] = obj[i]
+      }
+    }
+  } else {
+    result = obj
+  }
+
+  return result
+}
