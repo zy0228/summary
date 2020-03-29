@@ -175,3 +175,26 @@ function random(lower, upper) {
 function random(lower, upper) {
 	return Math.floor(Math.random() * (upper - lower+1)) + lower;
 }
+
+/**
+ * 求两个数组的交集
+ * @param {*} arr 
+ * @param {*} arr1 
+ */
+function intersect(arr, arr1) {
+  return arr.filter(item => {
+    return arr1.indexOf(item) !== -1
+  })
+}
+
+function intersectAll() {
+  let arrayList = Array.prototype.slice.call(arguments)
+  return arrayList.reduce((pre, cur) => {
+    return intersect(pre ,cur)
+  })
+}
+
+let result = intersectAll([2,3,4,6,78,9],[4,5,89,0,6,3],[5,3,6],[4,5,3,55,6]);
+
+console.log(result)
+
