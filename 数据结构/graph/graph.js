@@ -8,28 +8,34 @@
 // 用邻接表的方法实现图类
 
 class Graph {
-  constructor() {
+  constructor(isDirected = false) {
+    this.isDirected = isDirected // 是否有方向
     this.vertices = []           // 初始化一个空数组来储存所有顶点
     this.adlist = new Map()      // 创建一个字典来储存顶点连接的边
   }
 
-  /**
-   * 添加顶点
-   * @param {*} v 
-   */
+  // 添加顶点
   addVertex(v) {
-    this.vertices.push(v)
-    this.adlist.set(v, [])
+    if (!this.vertices.includes(v)) {
+      this.vertices.push(v)
+      this.adlist.set(v, [])
+    }
   }
 
-  /**
-   * 联接边
-   * @param {*} v 
-   * @param {*} w 
-   */
+  // 添加边
   addEdge(v, w) {
+    if (this.adlist.get(v)) {
+      this.addVertex(v)
+    }
+
+    if (this.adlist.get(w)) {
+      this.addVertex(w)
+    }
+
     this.adlist.get(v).push(w)
-    this.adlist.get(w).push(v)
+    if (!this.isDirected) {
+      this.adlist.get(w).push(v)
+    }
   }
 
   toString() {
@@ -47,6 +53,14 @@ class Graph {
     });
 
     return ret
+  }
+
+  getVertices() {
+    return this.vertices
+  }
+
+  getEdge() {
+    return this.adlist
   }
 }
 
@@ -82,3 +96,5 @@ console.log(graphs.toString())
       H -> D 
       I -> E 
  */
+
+ module.exports = Graph
