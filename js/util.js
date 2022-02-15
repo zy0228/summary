@@ -1,3 +1,28 @@
+// promise.all
+function all(promiseMap) {
+  if (!(promiseMap instanceof Array)) {
+    throw TypeError(`${typeof promiseMap} ${promiseMap} is not iterable (cannot read property Symbol(Symbol.iterator))`);
+  }
+
+  const resultResolve = [];
+
+  return new Promise((resolve, reject) => {
+    for (let p of promiseMap) {
+      p.then(
+        (res) => {
+          resultResolve.push(res);
+          if (resultResolve.length === promiseMap.length) {
+            resolve(resultResolve)
+          }
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    }
+  })
+}
+
 /**
  * 
  * What I Cannot create, I do not undersatand
