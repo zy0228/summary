@@ -1,13 +1,20 @@
 // promise.all
 function all(promiseMap) {
-  if (!(promiseMap instanceof Array)) {
+  const isIterator = (i) => i !== null && typeof i[Symbol.iterator] === 'function'
+
+  if (!isIterator(promiseMap)) {
     throw TypeError(`${typeof promiseMap} ${promiseMap} is not iterable (cannot read property Symbol(Symbol.iterator))`);
   }
 
-  const resultResolve = [];
-
+  const resultResolve = []
+  const isPromise = (p) => p instanceof Promise
+  
   return new Promise((resolve, reject) => {
     for (let p of promiseMap) {
+      if (!isPromise(p)) {
+        p = Promise.resolve(p)
+      }
+
       p.then(
         (res) => {
           resultResolve.push(res);
